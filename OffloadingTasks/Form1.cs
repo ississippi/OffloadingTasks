@@ -5,6 +5,7 @@ namespace OffloadingTasks
 {
     public partial class Form1 : Form
     {
+        object lockObj = new object();
         public Form1()
         {
             InitializeComponent();
@@ -24,14 +25,16 @@ namespace OffloadingTasks
 
         private void ShowMessage(string message, int delay)
         {
-            Thread.Sleep(delay);
-            if (lblMessage.InvokeRequired)
+            lock (lockObj)
             {
-                lblMessage.Invoke(new Action(() => lblMessage.Text = message));
-            }
-            else
-            {
-                lblMessage.Text = message;
+                if (lblMessage.InvokeRequired)
+                {
+                    lblMessage.Invoke(new Action(() => lblMessage.Text = message));
+                }
+                else
+                {
+                    lblMessage.Text = message;
+                }
             }
         }
     }
