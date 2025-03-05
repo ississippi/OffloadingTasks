@@ -37,5 +37,20 @@ namespace OffloadingTasks
                 }
             }
         }
+        private async void button1Async_Click(object sender, EventArgs e)
+        {
+            await ShowMessageAsync("First Message", 3000);
+        }
+
+        private async void button2Async_Click(object sender, EventArgs e)
+        {
+            await ShowMessageAsync("Second Message", 3000);
+        }
+        private async Task ShowMessageAsync(string message, int delay)
+        {
+            await Task.Delay(delay);
+
+            lblMessage.Text = message;
+        }
     }
 }
